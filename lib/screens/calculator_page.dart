@@ -9,6 +9,10 @@ class CalculatorPage extends StatefulWidget {
 
 class _CalculatorPageState extends State<CalculatorPage> {
   String _output = '0'; //Lo que se muestra en pantalla
+  String _currentInput = '';
+  double? _firstOperand;
+  String? _operator;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,10 +77,51 @@ class _CalculatorPageState extends State<CalculatorPage> {
       //Si el usuario presiona 'C', limpiamos la pantalla
       if(value == 'C'){
         _output = '0';
-      }else if (_output == '0'){
-        _output = value; //reemplazamos el 0 inicial
-      }else{
-        _output += value; //concatenamos los valores
+        _currentInput = '';
+        _firstOperand = null;
+        _operator = null;
+      }else if (value == '+' || value == '-' || value == 'X' || value == '/') {
+        //Guarda el primer numero y el operador
+        if(_currentInput.isNotEmpty){
+          _firstOperand = double.tryParse(_currentInput);
+          _operator = value;
+          _currentInput = '';
+        }
+      }else if (value == '='){
+        //Ejecuta la operacion si todo esta listo
+        if (_firstOperand != null && _operator != null && _currentInput.isNotEmpty){
+          double secondOperand = double.tryParse(_currentInput) ?? 0;
+          double result = 0;
+
+          switch (_operator){
+            case '+':
+              result = _firstOperand! + secondOperand;
+              break;
+            case '-':
+              result = _firstOperand! - secondOperand;
+            case 'X':
+              result = _firstOperand! * secondOperand;
+              break;
+            case '/':
+              if (secondOperand != 0){
+                result = _firstOperand! / secondOperand;
+              }else{
+                _output = 'ERROR';
+                return;
+              }
+              break;
+          }
+
+          //Mostrar el Resultado
+          _output = result.toString();
+          _currentInput = '';
+          _firstOperand = null;
+          _operator = null;
+        }
+      } else {
+        //Concatenar numeros normales
+        _currentInput += value;
+        _output = _currentInput;
       }
     });
   }
