@@ -66,8 +66,8 @@ class _CalculatorPageState extends State<CalculatorPage> {
                   _buildButton('C'),
                   _buildButton('0'),
                   _buildButton('.'),
-                  _buildButton('='),
                   _buildButton('+'),
+                  _buildButton('='),
                 ],
               ),
             ),
@@ -78,7 +78,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
   }
   Widget _buildButton(String label){
 
-    final isOperator = ['+', '-', 'x', '/', '=', 'C'].contains(label);
+    final isOperator = ['+', '-', 'X', '/', '=', 'C'].contains(label);
 
     return ElevatedButton(
       onPressed: () => _onButtonPressed(label),
