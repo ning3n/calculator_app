@@ -16,58 +16,78 @@ class _CalculatorPageState extends State<CalculatorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Calculadora'), centerTitle: true),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          //Pantalla de resultado
-          Container(
-            padding: const EdgeInsets.all(24),
-            alignment: Alignment.centerRight,
-            child: Text(
-              _output,
-              style: TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
+      appBar: AppBar(
+        title: Text('Calculadora'), 
+        centerTitle: true,
+        backgroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            //Pantalla de resultado
+            Container(
+              padding: const EdgeInsets.all(24),
+              alignment: Alignment.centerRight,
+              child: Text(
+                _output,
+                style: TextStyle(
+                  fontSize: 56, 
+                  fontWeight: FontWeight.w300,
+                  color: Colors.white,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-          SizedBox(height: 10),
-          //Botones
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 4, //4 columnas
-              padding: const EdgeInsets.all(8),
-              mainAxisSpacing: 8,
-              crossAxisSpacing: 8,
-              children: [
-                _buildButton('7'),
-                _buildButton('8'),
-                _buildButton('9'),
-                _buildButton('/'),
-                _buildButton('4'),
-                _buildButton('5'),
-                _buildButton('6'),
-                _buildButton('X'),
-                _buildButton('1'),
-                _buildButton('2'),
-                _buildButton('3'),
-                _buildButton('-'),
-                _buildButton('C'),
-                _buildButton('0'),
-                _buildButton('.'),
-                _buildButton('='),
-                _buildButton('+'),
-              ],
+            SizedBox(height: 10),
+            //Botones
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 4, //4 columnas
+                padding: const EdgeInsets.all(8),
+                mainAxisSpacing: 8,
+                crossAxisSpacing: 8,
+                children: [
+                  _buildButton('7'),
+                  _buildButton('8'),
+                  _buildButton('9'),
+                  _buildButton('/'),
+                  _buildButton('4'),
+                  _buildButton('5'),
+                  _buildButton('6'),
+                  _buildButton('X'),
+                  _buildButton('1'),
+                  _buildButton('2'),
+                  _buildButton('3'),
+                  _buildButton('-'),
+                  _buildButton('C'),
+                  _buildButton('0'),
+                  _buildButton('.'),
+                  _buildButton('='),
+                  _buildButton('+'),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
   Widget _buildButton(String label){
+
+    final isOperator = ['+', '-', 'x', '/', '=', 'C'].contains(label);
+
     return ElevatedButton(
       onPressed: () => _onButtonPressed(label),
       style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.all(24),
-        textStyle: TextStyle(fontSize: 24),
+        backgroundColor: isOperator ? Colors.orange : Colors.grey[800],
+        foregroundColor: Colors.white,
+        shape: const CircleBorder(),
+        padding: const EdgeInsets.all(20),
+        textStyle: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ), 
       child: Text(label)
       );
