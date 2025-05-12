@@ -52,6 +52,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                 _buildButton('-'),
                 _buildButton('C'),
                 _buildButton('0'),
+                _buildButton('.'),
                 _buildButton('='),
                 _buildButton('+'),
               ],
@@ -120,6 +121,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
         }
       } else {
         //Concatenar numeros normales
+        if(value == '.' && _currentInput.contains('.')){
+          return; //no permitir multiples puntos
+        }
         _currentInput += value;
         _output = _currentInput;
       }
