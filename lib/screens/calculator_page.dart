@@ -28,11 +28,14 @@ class _CalculatorPageState extends State<CalculatorPage> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             //Pantalla de resultado
-            Container(
-              padding: const EdgeInsets.all(24),
-              alignment: Alignment.centerRight,
+            AnimatedSwitcher(
+              duration: Duration(microseconds: 200),
+              transitionBuilder: (child, animation) {
+                return FadeTransition(opacity: animation, child: child);
+              },
               child: Text(
                 _output,
+                key:ValueKey<String>(_output),
                 style: TextStyle(
                   fontSize: 56, 
                   fontWeight: FontWeight.w300,
